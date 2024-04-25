@@ -3,7 +3,7 @@ import { createFolder } from '@/helpers/createFolder'
 import { deleteContent } from '@/helpers/deleteContent'
 import fs from 'fs'
 describe('createFolder', () => {
-  const PATH = 'src/modules'
+  const PATH = 'demos/createFolder'
   afterEach(() => {
     // remove the folder after each test
     deleteContent(PATH)

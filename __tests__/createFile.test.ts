@@ -2,7 +2,7 @@ import { createFile } from '@/helpers/createFile'
 import { deleteContent } from '@/helpers/deleteContent'
 import fs from 'fs'
 describe('createFile', () => {
-  const PATH = 'src/modules'
+  const PATH = 'demos/createFile'
   afterEach(() => {
     // remove the file after each test
     deleteContent(PATH)
