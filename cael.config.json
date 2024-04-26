@@ -5,7 +5,7 @@
       "attributes": [
         {
           "name": "id",
-          "type": "int"
+          "type": "number"
         },
         {
           "name": "name",
@@ -38,14 +38,14 @@
             }
           ],
           "is_promise": true,
-          "return_type": "int"
+          "return_type": "number"
         },
         {
           "name": "getUser",
           "parameters": [
             {
               "name": "id",
-              "type": "int"
+              "type": "number"
             }
           ],
           "is_promise": true,
