@@ -1,26 +1,12 @@
-import fs from 'fs'
-import { setCamelCase } from './setCamelCase'
-import { createFolder } from './createFolder'
-import { createFile } from './createFile'
-import { EntityCael } from '@/types/entity'
-import { createInterfaceString } from './createInterfaceString'
-import { createInterfaceRepository } from './createInterfaceRepository'
-import { createValueString } from './createValueString'
-export const createDomain = (path: string, entity: EntityCael) => {
-  // Convert the module to camel case
-  const module = setCamelCase(entity.name)
-  // validate if the module folder exists
-  if (!fs.existsSync(`${path}/modules`)) {
-    createFolder('modules', path)
-  }
-  if (!fs.existsSync(`${path}/modules/${module}`)) {
-    createFolder(module, `${path}/modules`)
-    const contentEntity = createInterfaceString(entity.attributes, module)
-    createFile('entity', `${path}/modules/${module}`, contentEntity)
-    const contentRepository = createInterfaceRepository(entity.methods, module)
-    createFile('repository', `${path}/modules/${module}`, contentRepository)
+import { FsFileManagerRepository } from '@/modules/FileManager/infrastructure/repository'
+import { WritterUseCase } from '@/modules/Writter/application'
+import { WritterController } from '@/modules/Writter/infrastructure/controllers'
+import { NodeRepository } from '@/modules/Writter/infrastructure/repository'
 
-    const contentValue = createValueString(entity.attributes, module)
-    createFile('value', `${path}/modules/${module}`, contentValue)
-  }
-}
+const writterRepository = new NodeRepository()
+const fileManagerRepository = new FsFileManagerRepository()
+const writterUseCase = new WritterUseCase(
+  writterRepository,
+  fileManagerRepository
+)
+export const writterController = new WritterController(writterUseCase)

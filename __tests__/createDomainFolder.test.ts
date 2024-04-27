@@ -1,4 +1,4 @@
-import { createDomain } from '@/helpers/createDomain'
+import { writterController } from '@/helpers/createDomain'
 import { deleteContent } from '@/helpers/deleteContent'
 import fs from 'fs'
 import path from 'path'
@@ -10,7 +10,7 @@ describe('createDomainFolder', () => {
     deleteContent(PATH_ROUTE)
   })
   it('should create a domain folder for a module', () => {
-    createDomain(PATH_ROUTE, data.entities[0])
+    writterController.createDomain(data.entities[0], PATH_ROUTE)
     // check if the folder with the files are created
     expect(fs.existsSync(path.join(PATH_ROUTE, 'modules', 'Users'))).toBe(true)
     expect(
