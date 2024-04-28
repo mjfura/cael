@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "lint": "eslint .",
     "review-format": "prettier --check .",
     "prepare": "husky"
@@ -29,6 +29,7 @@
     "prettier": "3.2.5",
     "ts-jest": "29.1.2",
     "ts-node-dev": "2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "5.4.5"
   },
   "lint-staged": {

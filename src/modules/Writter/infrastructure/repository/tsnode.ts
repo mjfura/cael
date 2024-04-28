@@ -1,9 +1,9 @@
 import { Attribute } from '@/types/attributes'
 import { WritterRepository } from '../../domain'
 import { Method } from '@/types/methods'
-import { ReturnKeyword } from '@/types/keywords'
+import { Layers, ReturnKeyword } from '@/types/keywords'
 
-export class NodeRepository implements WritterRepository {
+export class TsNodeRepository implements WritterRepository {
   createInterfaceRepository(entityName: string, methods: Method[]): string {
     let methodsRepository = ``
     let hasEntity = false
@@ -61,5 +61,17 @@ export interface ${entityName} {${attrs}
 }
     `
     return contentEntity
+  }
+
+  createBarrel(layer: Layers): string {
+    let contentBarrel = ''
+    if (layer === Layers.DOMAIN) {
+      contentBarrel = `
+export * from './entity'
+export * from './repository'
+export * from './value'
+      `
+    }
+    return contentBarrel
   }
 }

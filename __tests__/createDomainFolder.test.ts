@@ -14,13 +14,24 @@ describe('createDomainFolder', () => {
     // check if the folder with the files are created
     expect(fs.existsSync(path.join(PATH_ROUTE, 'modules', 'Users'))).toBe(true)
     expect(
-      fs.existsSync(path.join(PATH_ROUTE, 'modules', 'Users', 'entity.ts'))
+      fs.existsSync(
+        path.join(PATH_ROUTE, 'modules', 'Users', 'domain', 'entity.ts')
+      )
     ).toBe(true)
     expect(
-      fs.existsSync(path.join(PATH_ROUTE, 'modules', 'Users', 'repository.ts'))
+      fs.existsSync(
+        path.join(PATH_ROUTE, 'modules', 'Users', 'domain', 'repository.ts')
+      )
     ).toBe(true)
     expect(
-      fs.existsSync(path.join(PATH_ROUTE, 'modules', 'Users', 'value.ts'))
+      fs.existsSync(
+        path.join(PATH_ROUTE, 'modules', 'Users', 'domain', 'value.ts')
+      )
+    ).toBe(true)
+    expect(
+      fs.existsSync(
+        path.join(PATH_ROUTE, 'modules', 'Users', 'domain', 'index.ts')
+      )
     ).toBe(true)
   })
 })

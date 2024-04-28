@@ -8,3 +8,8 @@ export enum VariableTypes {
   BOOLEAN = 'boolean',
   ANY = 'any'
 }
+export enum Layers {
+  DOMAIN = 'domain',
+  APPLICATION = 'application',
+  INFRASTRUCTURE = 'infrastructure'
+}

@@ -1,4 +1,5 @@
 import { Attribute } from '@/types/attributes'
+import { Layers } from '@/types/keywords'
 import { Method } from '@/types/methods'
 
 export interface WritterRepository {
@@ -9,4 +10,5 @@ export interface WritterRepository {
     className: string,
     attributes: Attribute[]
   ): string
+  createBarrel(layer: Layers): string
 }

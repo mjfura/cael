@@ -2,6 +2,7 @@ import { WritterRepository } from '../domain'
 import { EntityCael } from '@/types/entity'
 import { setCamelCase } from '../../../helpers/setCamelCase'
 import { FileManagerRepository } from '@/modules/FileManager/domain'
+import { Layers } from '@/types/keywords'
 
 export class WritterUseCase {
   public readonly repository: WritterRepository
@@ -16,11 +17,9 @@ export class WritterUseCase {
 
   public createDomain(entity: EntityCael, path: string) {
     // Convert the module to camel case
-    console.log('createDomain')
     const module = setCamelCase(entity.name)
     // validate if the module folder exists
     if (!this.fileManagerRepository.existFile(`${path}/modules`)) {
-      console.log('createFolder')
       this.fileManagerRepository.createFolder('modules', path)
     }
     if (!this.fileManagerRepository.existFile(`${path}/modules/${module}`)) {
@@ -29,9 +28,14 @@ export class WritterUseCase {
         module + 'Entity',
         entity.attributes
       )
+      this.fileManagerRepository.createFolder(
+        'domain',
+        `${path}/modules/${module}`
+      )
+
       this.fileManagerRepository.createFile(
         'entity',
-        `${path}/modules/${module}`,
+        `${path}/modules/${module}/domain`,
         contentEntity
       )
       const contentRepository = this.repository.createInterfaceRepository(
@@ -40,7 +44,7 @@ export class WritterUseCase {
       )
       this.fileManagerRepository.createFile(
         'repository',
-        `${path}/modules/${module}`,
+        `${path}/modules/${module}/domain`,
         contentRepository
       )
 
@@ -51,8 +55,14 @@ export class WritterUseCase {
       )
       this.fileManagerRepository.createFile(
         'value',
-        `${path}/modules/${module}`,
+        `${path}/modules/${module}/domain`,
         contentValue
+      )
+      const contentBarrel = this.repository.createBarrel(Layers.DOMAIN)
+      this.fileManagerRepository.createFile(
+        'index',
+        `${path}/modules/${module}/domain`,
+        contentBarrel
       )
     }
     return true

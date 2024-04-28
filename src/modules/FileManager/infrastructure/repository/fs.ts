@@ -8,7 +8,7 @@ export class FsFileManagerRepository implements FileManagerRepository {
   }
 
   existFile(path: string): boolean {
-    return !fs.existsSync(path)
+    return fs.existsSync(path)
   }
 
   createFile(name: string, path: string, content?: string): void {
