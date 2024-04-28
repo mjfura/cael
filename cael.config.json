@@ -1,0 +1,57 @@
+{
+  "entities": [
+    {
+      "name": "users",
+      "attributes": [
+        {
+          "name": "id",
+          "type": "number"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "name": "password",
+          "type": "string"
+        }
+      ],
+      "methods": [
+        {
+          "name": "createUser",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "name": "email",
+              "type": "string"
+            },
+            {
+              "name": "password",
+              "type": "string"
+            }
+          ],
+          "is_promise": true,
+          "return_type": "number"
+        },
+        {
+          "name": "getUser",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "number"
+            }
+          ],
+          "is_promise": true,
+          "return_type": "__entity__"
+        }
+      ]
+    }
+  ]
+}
