@@ -72,6 +72,24 @@ export * from './repository'
 export * from './value'
       `
     }
+    if (layer === Layers.APPLICATION) {
+      contentBarrel = `
+export * from './useCase'
+      `
+    }
     return contentBarrel
+  }
+
+  createUseCaseClass(entityName: string): string {
+    const contentUseCase = `
+import { ${entityName}Repository } from '../domain'
+export class ${entityName}UseCase {
+  public readonly repository: ${entityName}Repository
+  constructor(repository: ${entityName}Repository) {
+    this.repository = repository
+  }
+}
+  `
+    return contentUseCase
   }
 }

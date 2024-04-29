@@ -11,4 +11,5 @@ export interface WritterRepository {
     attributes: Attribute[]
   ): string
   createBarrel(layer: Layers): string
+  createUseCaseClass(entityName: string): string
 }
