@@ -67,4 +67,34 @@ export class WritterUseCase {
     }
     return true
   }
+
+  public createApplicationLayer(entity: EntityCael, path: string) {
+    const module = setCamelCase(entity.name)
+    if (!this.fileManagerRepository.existFile(`${path}/modules`)) {
+      this.fileManagerRepository.createFolder('modules', path)
+    }
+    if (!this.fileManagerRepository.existFile(`${path}/modules/${module}`)) {
+      this.fileManagerRepository.createFolder(module, `${path}/modules`)
+
+      this.fileManagerRepository.createFolder(
+        'application',
+        `${path}/modules/${module}`
+      )
+
+      const contentUseCase = this.repository.createUseCaseClass(module)
+      this.fileManagerRepository.createFile(
+        'useCase',
+        `${path}/modules/${module}/application`,
+        contentUseCase
+      )
+
+      const contentBarrel = this.repository.createBarrel(Layers.APPLICATION)
+      this.fileManagerRepository.createFile(
+        'index',
+        `${path}/modules/${module}/application`,
+        contentBarrel
+      )
+    }
+    return true
+  }
 }
