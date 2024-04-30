@@ -1,5 +1,5 @@
 {
-  "name": "cael",
+  "name": "cael-arch",
   "version": "1.0.0",
   "description": "Cael is a simple and lightweight library for creating and managing modules using clean architechture.",
   "main": "build/index.js",
