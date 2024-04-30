@@ -5,6 +5,7 @@ export class WritterController {
   constructor(private writterUseCase: WritterUseCase) {
     this.createDomain = this.createDomain.bind(this)
     this.createApplication = this.createApplication.bind(this)
+    this.createInfrastructure = this.createInfrastructure.bind(this)
   }
 
   public createDomain(entity: EntityCael, path: string): boolean {
@@ -16,6 +17,12 @@ export class WritterController {
   }
 
   public createInfrastructure(entity: EntityCael, path: string): boolean {
+    return this.writterUseCase.createInfrastructureLayer(entity, path)
+  }
+
+  public createAll(entity: EntityCael, path: string): boolean {
+    this.writterUseCase.createDomain(entity, path)
+    this.writterUseCase.createApplicationLayer(entity, path)
     return this.writterUseCase.createInfrastructureLayer(entity, path)
   }
 }
