@@ -10,6 +10,11 @@ export interface WritterRepository {
     className: string,
     attributes: Attribute[]
   ): string
-  createBarrel(layer: Layers): string
+  createBarrel(layer: Layers, defaultRepository?: string): string
   createUseCaseClass(entityName: string): string
+  createRepositoryClass(
+    entityName: string,
+    methods: Method[],
+    infrastructure: string
+  ): string
 }

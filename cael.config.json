@@ -2,6 +2,7 @@
   "entities": [
     {
       "name": "users",
+      "defaultRepository": "mysql",
       "attributes": [
         {
           "name": "id",

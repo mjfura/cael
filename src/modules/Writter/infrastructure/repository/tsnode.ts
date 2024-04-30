@@ -63,7 +63,7 @@ export interface ${entityName} {${attrs}
     return contentEntity
   }
 
-  createBarrel(layer: Layers): string {
+  createBarrel(layer: Layers, defaultRepository?: string): string {
     let contentBarrel = ''
     if (layer === Layers.DOMAIN) {
       contentBarrel = `
@@ -75,6 +75,11 @@ export * from './value'
     if (layer === Layers.APPLICATION) {
       contentBarrel = `
 export * from './useCase'
+      `
+    }
+    if (layer === Layers.INFRASTRUCTURE) {
+      contentBarrel = `
+export * from './${defaultRepository}Repository'
       `
     }
     return contentBarrel
@@ -91,5 +96,34 @@ export class ${entityName}UseCase {
 }
   `
     return contentUseCase
+  }
+
+  createRepositoryClass(
+    entityName: string,
+    methods: Method[],
+    infrastructure: string
+  ): string {
+    let methodsRepository = ``
+    let hasEntity = false
+    for (const method of methods) {
+      const params = method.parameters
+        .map((param) => `${param.name}:${param.type}`)
+        .join(',')
+      let returnValue = method.return_type
+      if (method.return_type === ReturnKeyword.ENTITY) {
+        returnValue = entityName + 'Entity'
+        hasEntity = true
+      }
+      if (method.is_promise === true) {
+        methodsRepository += `\n    ${method.name}(${params}):Promise<${returnValue}>{}`
+        continue
+      }
+      methodsRepository += `\n    ${method.name}(${params}):${returnValue}{}`
+    }
+    const contentRepository = `${hasEntity ? `import { ${entityName}Entity, ${entityName}Repository } from '../../domain'\n` : `import { ${entityName}Repository } from '../../domain'\n`}
+export class ${infrastructure}Repository implements ${entityName}Repository {${methodsRepository}
+}
+    `
+    return contentRepository
   }
 }
