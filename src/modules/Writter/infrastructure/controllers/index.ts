@@ -14,4 +14,8 @@ export class WritterController {
   public createApplication(entity: EntityCael, path: string): boolean {
     return this.writterUseCase.createApplicationLayer(entity, path)
   }
+
+  public createInfrastructure(entity: EntityCael, path: string): boolean {
+    return this.writterUseCase.createInfrastructureLayer(entity, path)
+  }
 }

@@ -97,4 +97,46 @@ export class WritterUseCase {
     }
     return true
   }
+
+  public createInfrastructureLayer(entity: EntityCael, path: string) {
+    const module = setCamelCase(entity.name)
+    entity.defaultRepository = setCamelCase(entity.defaultRepository)
+    if (!this.fileManagerRepository.existFile(`${path}/modules`)) {
+      this.fileManagerRepository.createFolder('modules', path)
+    }
+    if (!this.fileManagerRepository.existFile(`${path}/modules/${module}`)) {
+      this.fileManagerRepository.createFolder(module, `${path}/modules`)
+
+      this.fileManagerRepository.createFolder(
+        'infrastructure',
+        `${path}/modules/${module}`
+      )
+      this.fileManagerRepository.createFolder(
+        'repository',
+        `${path}/modules/${module}/infrastructure`
+      )
+
+      const contentRepository = this.repository.createRepositoryClass(
+        module,
+        entity.methods,
+        entity.defaultRepository
+      )
+      this.fileManagerRepository.createFile(
+        `${entity.defaultRepository}Repository`,
+        `${path}/modules/${module}/infrastructure/repository`,
+        contentRepository
+      )
+
+      const contentBarrel = this.repository.createBarrel(
+        Layers.INFRASTRUCTURE,
+        entity.defaultRepository
+      )
+      this.fileManagerRepository.createFile(
+        'index',
+        `${path}/modules/${module}/infrastructure/repository`,
+        contentBarrel
+      )
+    }
+    return true
+  }
 }
