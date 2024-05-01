@@ -8,4 +8,4 @@ const writterUseCase = new WritterUseCase(
   writterRepository,
   fileManagerRepository
 )
-export const writterController = new WritterController(writterUseCase)
+export const cael = new WritterController(writterUseCase)
