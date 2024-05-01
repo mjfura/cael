@@ -75,26 +75,26 @@ export class WritterUseCase {
     }
     if (!this.fileManagerRepository.existFile(`${path}/modules/${module}`)) {
       this.fileManagerRepository.createFolder(module, `${path}/modules`)
-
-      this.fileManagerRepository.createFolder(
-        'application',
-        `${path}/modules/${module}`
-      )
-
-      const contentUseCase = this.repository.createUseCaseClass(module)
-      this.fileManagerRepository.createFile(
-        'useCase',
-        `${path}/modules/${module}/application`,
-        contentUseCase
-      )
-
-      const contentBarrel = this.repository.createBarrel(Layers.APPLICATION)
-      this.fileManagerRepository.createFile(
-        'index',
-        `${path}/modules/${module}/application`,
-        contentBarrel
-      )
     }
+    this.fileManagerRepository.createFolder(
+      'application',
+      `${path}/modules/${module}`
+    )
+
+    const contentUseCase = this.repository.createUseCaseClass(module)
+    this.fileManagerRepository.createFile(
+      'useCase',
+      `${path}/modules/${module}/application`,
+      contentUseCase
+    )
+
+    const contentBarrel = this.repository.createBarrel(Layers.APPLICATION)
+    this.fileManagerRepository.createFile(
+      'index',
+      `${path}/modules/${module}/application`,
+      contentBarrel
+    )
+
     return true
   }
 
@@ -106,37 +106,37 @@ export class WritterUseCase {
     }
     if (!this.fileManagerRepository.existFile(`${path}/modules/${module}`)) {
       this.fileManagerRepository.createFolder(module, `${path}/modules`)
-
-      this.fileManagerRepository.createFolder(
-        'infrastructure',
-        `${path}/modules/${module}`
-      )
-      this.fileManagerRepository.createFolder(
-        'repository',
-        `${path}/modules/${module}/infrastructure`
-      )
-
-      const contentRepository = this.repository.createRepositoryClass(
-        module,
-        entity.methods,
-        entity.defaultRepository
-      )
-      this.fileManagerRepository.createFile(
-        `${entity.defaultRepository}Repository`,
-        `${path}/modules/${module}/infrastructure/repository`,
-        contentRepository
-      )
-
-      const contentBarrel = this.repository.createBarrel(
-        Layers.INFRASTRUCTURE,
-        entity.defaultRepository
-      )
-      this.fileManagerRepository.createFile(
-        'index',
-        `${path}/modules/${module}/infrastructure/repository`,
-        contentBarrel
-      )
     }
+    this.fileManagerRepository.createFolder(
+      'infrastructure',
+      `${path}/modules/${module}`
+    )
+    this.fileManagerRepository.createFolder(
+      'repository',
+      `${path}/modules/${module}/infrastructure`
+    )
+
+    const contentRepository = this.repository.createRepositoryClass(
+      module,
+      entity.methods,
+      entity.defaultRepository
+    )
+    this.fileManagerRepository.createFile(
+      `${entity.defaultRepository}Repository`,
+      `${path}/modules/${module}/infrastructure/repository`,
+      contentRepository
+    )
+
+    const contentBarrel = this.repository.createBarrel(
+      Layers.INFRASTRUCTURE,
+      entity.defaultRepository
+    )
+    this.fileManagerRepository.createFile(
+      'index',
+      `${path}/modules/${module}/infrastructure/repository`,
+      contentBarrel
+    )
+
     return true
   }
 }

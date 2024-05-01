@@ -11,7 +11,8 @@ console.log(
 const configFile = path.join(process.cwd(), 'cael.config.json')
 if (fs.existsSync(configFile)) {
   console.log('El archivo cael.config.json existe en la raiz del proyecto')
-  const config = JSON.parse(configFile) as ConfigCael
+  const configFileContent = fs.readFileSync(configFile, 'utf-8')
+  const config = JSON.parse(configFileContent) as ConfigCael
   config.entities.forEach((entity: EntityCael) => {
     cael.createDomain(entity, config.path)
   })
