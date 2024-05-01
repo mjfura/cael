@@ -1,17 +1,17 @@
 {
   "name": "cael-arch",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Cael is a simple and lightweight library for creating and managing modules using clean architechture.",
   "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "types": "build/src/index.d.ts",
   "bin": {
-    "cael": "./build/cli.js"
+    "cael": "./build/src/cli.js"
   },
   "files": [
     "build"
   ],
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest --watchAll --coverage --verbose .",
     "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "lint": "eslint .",
