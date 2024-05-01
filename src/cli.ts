@@ -5,17 +5,29 @@ import { cael } from '.'
 import { EntityCael } from './types/entity'
 import { ConfigCael } from './types'
 console.log(
-  'Hola desde cael-arch, receurda que debes tener un archivo cael.config.json en la raiz de tu proyecto para poder ejecutar el comando cael-arch create:domain'
+  'Hi 👋, WELCOME TO CAEL-ARCH 🤖!!!, please wait a moment while we process your entities...'
 )
-
-const configFile = path.join(process.cwd(), 'cael.config.json')
-if (fs.existsSync(configFile)) {
-  console.log('El archivo cael.config.json existe en la raiz del proyecto')
+try {
+  const configFile = path.join(process.cwd(), 'cael.config.json')
+  if (!fs.existsSync(configFile)) {
+    throw new Error(
+      'Config file not found 🚨, please create a cael.config.json file in the root of your project 📁'
+    )
+  }
+  console.log('PROCESSING...⏲')
   const configFileContent = fs.readFileSync(configFile, 'utf-8')
   const config = JSON.parse(configFileContent) as ConfigCael
   config.entities.forEach((entity: EntityCael) => {
-    cael.createDomain(entity, config.path)
+    const response = cael.createAll(entity, config.path)
+    if (!response.status) {
+      throw new Error(response.message)
+    }
   })
-} else {
-  console.log('El archivo cael.config.json no existe en la raiz del proyecto')
+  console.log('PROCESS FINISHED ✅')
+  console.log('THANKS FOR USING CAEL-ARCH ⚡️ !!!')
+  console.log('HAPPY CODING!!!')
+  console.log('Developed by: Marco Fura 💻')
+} catch (e) {
+  const error = e as Error
+  console.error(error.message)
 }
